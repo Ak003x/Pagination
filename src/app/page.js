@@ -25,9 +25,9 @@ export default function App() {
             return (
               <span
                 key={prod.id}
-                className="p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer"
+                className="p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer "
               >
-                <img src={prod.images} alt={prod.id} />
+                <img src={prod.images} alt={prod.id} className="object-cover"/>
                 <span>{prod.title}</span>
               </span>
             );
