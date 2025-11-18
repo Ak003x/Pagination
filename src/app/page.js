@@ -5,11 +5,13 @@ export default function App() {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
-    const res = await fetch("https://dummyjson.com/products");
+    const res = await fetch(
+      "https://api.escuelajs.co/api/v1/products?limit=100"
+    );
     const data = await res.json();
 
-    if (data && data.products) {
-      setProducts(data.products);
+    if (data) {
+      setProducts(data);
     }
   };
   console.log(products);
@@ -20,9 +22,14 @@ export default function App() {
   return (
     <div>
       {products.length > 0 && (
-        <div className="text-2xl">
+        <div className="grid grid-cols-4 gap-5">
           {products.map((prod) => {
-            return <span key={prod.id}>{prod.title}</span>;
+            return (
+              <span key={prod.id}>
+                <img src={prod.images} alt={prod.id} />
+                <span>{prod.title}</span>
+              </span>
+            );
           })}
         </div>
       )}
