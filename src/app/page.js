@@ -30,16 +30,16 @@ export default function App() {
           {products.slice(page * 10 - 10, page * 10).map((prod) => {
             return (
               <span
-              key={prod.id}
-              className="flex flex-col justify-between items-center h-105 p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer"
-            >
-              <img
-                src={prod.images[0]}
-                alt={prod.title}
-                className="w-full h-full object-cover rounded "
-              />
-              <span className="mt-auto">{prod.title}</span>
-            </span>
+                key={prod.id}
+                className="flex flex-col justify-between items-center h-105 p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer"
+              >
+                <img
+                  src={prod.images[0]}
+                  alt={prod.title}
+                  className="w-full h-full object-cover rounded "
+                />
+                <span className="mt-auto">{prod.title}</span>
+              </span>
             );
           })}
         </div>
