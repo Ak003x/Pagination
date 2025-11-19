@@ -47,7 +47,7 @@ export default function App() {
       <div className=" flex justify-center mt-8 space-x-2 text-white">
         <button
           onClick={() => handleClick(page - 1)}
-          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition disabled:opacity-0"
+          className="px-4 py-2 bg-white text-black border border-yellow-400 rounded-l-lg hover:bg-gray-500 transition disabled:opacity-0"
           disabled={page === 1}
         >
           👈
@@ -58,7 +58,7 @@ export default function App() {
             return (
               <span
                 onClick={() => handleClick(i + 1)}
-                className={`px-3 py-2 border border-gary-300 rounded cursor-pointer text-white transition${
+                className={`px-3 py-2 border border-gray-300 rounded cursor-pointer text-white transition${
                   page === i + 1
                     ? "bg-black font-semibold text-yellow-400 "
                     : " hover:text-black hover:bg-yellow-400"
@@ -72,7 +72,7 @@ export default function App() {
 
         <button
           onClick={() => handleClick(page + 1)}
-          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition disabled:opacity-0"
+          className="px-4 py-2 bg-white text-black border border-yellow-400 rounded-r-lg hover:bg-gray-500 transition disabled:opacity-0"
           disabled={page >= Math.floor(products.length / 10)}
         >
           👉
