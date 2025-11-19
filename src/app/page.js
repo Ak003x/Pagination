@@ -6,11 +6,11 @@ export default function App() {
   const [page, setPage] = useState(1);
 
   const fetchProducts = async () => {
-    const res = await fetch("https://api.escuelajs.co/api/v1/products");
+    const res = await fetch("https://dummyjson.com/products?limit=100");
     const data = await res.json();
 
     if (data) {
-      setProducts(data);
+      setProducts(data.products);
     }
   };
   console.log(products);
@@ -19,16 +19,16 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-black w-full h-full">
       {products.length > 0 && (
-        <div className="grid grid-cols-4 gap-5 p-5  bg-black ">
-          {products.slice(page * 5 - 5, page * 5).map((prod) => {
+        <div className="grid grid-cols-5 gap-5 p-5  bg-black ">
+          {products.slice(page * 10 - 10, page * 10).map((prod) => {
             return (
               <span
                 key={prod.id}
                 className="p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer "
               >
-                <img src={prod.images} alt={prod.id} className="object-cover" />
+                <img src={prod.images[0]} alt={prod.id} className="object-cover" />
                 <span>{prod.title}</span>
               </span>
             );
@@ -39,7 +39,7 @@ export default function App() {
         <span>👈</span>
         <span>
           {products.length > 0 &&
-            [...Array(Math.floor(products.length / 5))].map((_, i) => {
+            [...Array(products.length / 10)].map((_, i) => {
               return <span key={i}>{i + 1}</span>;
             })}
         </span>
