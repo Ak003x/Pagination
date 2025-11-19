@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(10);
+  const [page, setPage] = useState(1);
 
   const fetchProducts = async () => {
     const res = await fetch("https://dummyjson.com/products?limit=100");
@@ -47,7 +47,8 @@ export default function App() {
       <div className=" flex justify-center mt-8 space-x-2 text-white">
         <button
           onClick={() => handleClick(page - 1)}
-          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition"
+          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition disabled:opacity-0"
+          disabled={page === 1}
         >
           👈
         </button>
@@ -71,7 +72,8 @@ export default function App() {
 
         <button
           onClick={() => handleClick(page + 1)}
-          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition"
+          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition disabled:opacity-0"
+          disabled={page >= Math.floor(products.length / 10)}
         >
           👉
         </button>
