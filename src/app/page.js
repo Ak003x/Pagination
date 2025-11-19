@@ -18,6 +18,11 @@ export default function App() {
     fetchProducts();
   }, []);
 
+  const handleClick = (selectedPage) => {
+    if (selectedPage >= 1 && selectedPage <= products.length / 10)
+      setPage(selectedPage);
+  };
+
   return (
     <section className="bg-black w-full h-screen">
       {products.length > 0 && (
@@ -40,7 +45,10 @@ export default function App() {
         </div>
       )}
       <div className=" flex justify-center mt-8 space-x-2 text-white">
-        <button className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition">
+        <button
+          onClick={() => handleClick(page - 1)}
+          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition"
+        >
           👈
         </button>
 
@@ -48,6 +56,7 @@ export default function App() {
           [...Array(products.length / 10)].map((_, i) => {
             return (
               <span
+                onClick={() => handleClick(i + 1)}
                 className={`px-3 py-2 border border-gary-300 rounded cursor-pointer text-white transition${
                   page === i + 1
                     ? "bg-black font-semibold text-yellow-400 "
@@ -60,7 +69,10 @@ export default function App() {
             );
           })}
 
-        <button className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition">
+        <button
+          onClick={() => handleClick(page + 1)}
+          className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition"
+        >
           👉
         </button>
       </div>
