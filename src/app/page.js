@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(10);
 
   const fetchProducts = async () => {
     const res = await fetch("https://dummyjson.com/products?limit=100");
@@ -19,7 +19,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="bg-black w-full h-full">
+    <section className="bg-black w-full h-screen">
       {products.length > 0 && (
         <div className="grid grid-cols-5 gap-5 p-5  bg-black ">
           {products.slice(page * 10 - 10, page * 10).map((prod) => {
@@ -28,23 +28,42 @@ export default function App() {
                 key={prod.id}
                 className="p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer "
               >
-                <img src={prod.images[0]} alt={prod.id} className="object-cover" />
+                <img
+                  src={prod.images[0]}
+                  alt={prod.id}
+                  className="object-cover"
+                />
                 <span>{prod.title}</span>
               </span>
             );
           })}
         </div>
       )}
-      <div>
-        <span>👈</span>
-        <span>
-          {products.length > 0 &&
-            [...Array(products.length / 10)].map((_, i) => {
-              return <span key={i}>{i + 1}</span>;
-            })}
-        </span>
-        <span>👉</span>
+      <div className=" flex justify-center mt-8 space-x-2 text-white">
+        <button className="px-4 py-2 bg-white text-black border border-gray-300 rounded-l-lg hover:bg-gray-500 transition">
+          👈
+        </button>
+
+        {products.length > 0 &&
+          [...Array(products.length / 10)].map((_, i) => {
+            return (
+              <span
+                className={`px-3 py-2 border border-gary-300 rounded cursor-pointer text-white transition${
+                  page === i + 1
+                    ? "bg-black font-semibold text-yellow-400 "
+                    : " hover:text-black hover:bg-yellow-400"
+                }`}
+                key={i}
+              >
+                {i + 1}
+              </span>
+            );
+          })}
+
+        <button className="px-4 py-2 bg-white text-black border border-gray-300 rounded-r-lg hover:bg-gray-500 transition">
+          👉
+        </button>
       </div>
-    </div>
+    </section>
   );
 }
