@@ -35,7 +35,7 @@ export default function App() {
               >
                 <img
                   src={prod.images[0]}
-                  alt={prod.id}
+                  alt={prod.title}
                   className="object-cover"
                 />
                 <span>{prod.title}</span>
