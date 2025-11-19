@@ -4,30 +4,36 @@ import React, { useEffect, useState } from "react";
 export default function App() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   const fetchProducts = async () => {
-    const res = await fetch("https://dummyjson.com/products?limit=100");
+    const res = await fetch(
+      `https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`
+    );
     const data = await res.json();
+    console.log(data);
 
     if (data) {
       setProducts(data.products);
+      setTotalPage(Math.ceil(data.total / 10)); //Backend method
     }
   };
   console.log(products);
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [page]);
 
   const handleClick = (selectedPage) => {
-    if (selectedPage >= 1 && selectedPage <= products.length / 10)
+    if (selectedPage >= 1 && selectedPage <= totalPage) {
       setPage(selectedPage);
+    }
   };
 
   return (
     <section className="bg-black w-full min-h-screen">
       {products.length > 0 && (
         <div className="grid grid-cols-5 gap-5 p-5  bg-black ">
-          {products.slice(page * 10 - 10, page * 10).map((prod) => {
+          {products.map((prod) => {
             return (
               <span
                 key={prod.id}
@@ -54,26 +60,28 @@ export default function App() {
         </button>
 
         {products.length > 0 &&
-          [...Array(products.length / 10)].map((_, i) => {
-            return (
+          (() => {
+            const start = Math.floor((page - 1) / 10) * 10 + 1;
+            const end = Math.min(start + 9, totalPage);
+            return Array.from({ length: end - start + 1 }, (_, i) => (
               <span
-                onClick={() => handleClick(i + 1)}
+                onClick={() => handleClick(start + i)}
                 className={`px-3 py-2 border border-gray-300 rounded cursor-pointer text-white transition${
-                  page === i + 1
+                  page === start + i
                     ? "bg-black font-semibold text-yellow-400 "
                     : " hover:text-black hover:bg-yellow-400"
                 }`}
-                key={i}
+                key={start + i}
               >
-                {i + 1}
+                {start + i}
               </span>
-            );
-          })}
+            ));
+          })()}
 
         <button
           onClick={() => handleClick(page + 1)}
           className="px-4 py-2 bg-white text-black border border-yellow-400 rounded-r-lg hover:bg-gray-500 transition disabled:opacity-0"
-          disabled={page >= Math.floor(products.length / 10)}
+          disabled={page === totalPage}
         >
           👉
         </button>
