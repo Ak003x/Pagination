@@ -24,27 +24,27 @@ export default function App() {
   };
 
   return (
-    <section className="bg-black w-full h-screen">
+    <section className="bg-black w-full min-h-screen">
       {products.length > 0 && (
         <div className="grid grid-cols-5 gap-5 p-5  bg-black ">
           {products.slice(page * 10 - 10, page * 10).map((prod) => {
             return (
               <span
-                key={prod.id}
-                className="p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer "
-              >
-                <img
-                  src={prod.images[0]}
-                  alt={prod.title}
-                  className="object-cover"
-                />
-                <span>{prod.title}</span>
-              </span>
+              key={prod.id}
+              className="flex flex-col justify-between items-center h-105 p-5 text-xl text-center rounded-2xl bg-yellow-400 cursor-pointer"
+            >
+              <img
+                src={prod.images[0]}
+                alt={prod.title}
+                className="w-full h-full object-cover rounded "
+              />
+              <span className="mt-auto">{prod.title}</span>
+            </span>
             );
           })}
         </div>
       )}
-      <div className=" flex justify-center mt-8 space-x-2 text-white">
+      <div className=" flex justify-center space-x-2 text-white">
         <button
           onClick={() => handleClick(page - 1)}
           className="px-4 py-2 bg-white text-black border border-yellow-400 rounded-l-lg hover:bg-gray-500 transition disabled:opacity-0"
